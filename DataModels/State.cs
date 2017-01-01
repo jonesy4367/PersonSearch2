@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+// ReSharper disable DoNotCallOverridableMethodsInConstructor
+
 namespace DataModels
 {
     public class State
     {
+        public State()
+        {
+            Cities = new HashSet<City>();
+        }
+
         public int StateId { get; set; }
 
         [Required]
