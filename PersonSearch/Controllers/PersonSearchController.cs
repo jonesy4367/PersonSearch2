@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Models.PersonSearch;
 
 namespace PersonSearch.Controllers
 {
@@ -12,6 +10,19 @@ namespace PersonSearch.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult SearchPeople(string partialName, string blah)
+        {
+            var people = new List<Person>
+            {
+                new Person
+                {
+                    FullName = "Billy McBilly"
+                }
+            };
+
+            return Json(people, JsonRequestBehavior.AllowGet);
         }
     }
 }

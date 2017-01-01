@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "Database\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModels", "DataModels\DataModels.csproj", "{B16B6562-9B96-407A-AFBD-D5D9F4B27EEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D6A6B388-F3E1-4FCD-B271-C9BC7DB7A67D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{90891BD8-0419-41FF-B07A-A520DACC8BB3} = {D6A6B388-F3E1-4FCD-B271-C9BC7DB7A67D}
 		{79611D5A-E8BC-4D9D-AE7F-5D1C325FBBEC} = {03926A19-9BB2-466B-9E63-835FD39CB734}
 		{B16B6562-9B96-407A-AFBD-D5D9F4B27EEA} = {03926A19-9BB2-466B-9E63-835FD39CB734}
 	EndGlobalSection
