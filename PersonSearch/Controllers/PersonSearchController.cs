@@ -18,11 +18,26 @@ namespace PersonSearch.Controllers
             {
                 new Person
                 {
-                    FullName = "Billy McBilly"
+                    FullName = "Billy McBilly",
+                    Address = "address",
+                    Interests = new List<string>
+                    {
+                        "Tacos",
+                        "Burritos"
+                    }
+                },
+                new Person
+                {
+                    FullName = "Blah Blah",
+                    Address = "another address",
+                    Interests = new List<string>
+                    {
+                        "Pizza"
+                    }
                 }
             };
 
-            return Json(people, JsonRequestBehavior.AllowGet);
+            return Json(people);
         }
     }
 }
