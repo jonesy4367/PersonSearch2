@@ -1,43 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Models.PersonSearch;
+using PersonSearch.Models.PersonSearch;
+using PersonSearchCore.Interfaces;
 
 namespace PersonSearch.Controllers
 {
     public class PersonSearchController : Controller
     {
-        // GET: PersonSearch
+        private readonly IPersonSearchService _personSearchService;
+
+        public PersonSearchController(IPersonSearchService personSearchService)
+        {
+            _personSearchService = personSearchService;
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public JsonResult SearchPeople(string partialName, string blah)
+        public JsonResult SearchPeople(string partialName)
         {
-            var people = new List<Person>
-            {
-                new Person
-                {
-                    FullName = "Billy McBilly",
-                    Address = "address",
-                    Interests = new List<string>
-                    {
-                        "Tacos",
-                        "Burritos"
-                    }
-                },
-                new Person
-                {
-                    FullName = "Blah Blah",
-                    Address = "another address",
-                    Interests = new List<string>
-                    {
-                        "Pizza"
-                    }
-                }
-            };
+            var personData = _personSearchService.SearchPeople(partialName);
 
-            return Json(people);
+            return Json(personData
+                .Select(p => new PersonModel
+                {
+                    FullName = $"{p.FirstName} {p.LastName}",
+                    Age = p.Age,
+                    Address =
+                        $"{p.Address.StreetAddress} {p.Address.City.Name}, {p.Address.City.State.Abbreviation} {p.Address.ZipCode}",
+                    Interests = p
+                        .Interests
+                        .Select(i => i.Name)
+                        .ToList()
+                })
+                .ToList());
         }
     }
 }

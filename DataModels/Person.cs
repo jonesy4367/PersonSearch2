@@ -22,7 +22,7 @@ namespace DataModels
         [MaxLength(100)]
         public string LastName { get; set; }
 
-        public int Age { get; set; }
+        public short Age { get; set; }
 
         public int AddressId { get; set; }
 

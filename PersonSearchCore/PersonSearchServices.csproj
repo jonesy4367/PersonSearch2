@@ -41,10 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IPersonSearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\DataModels\DataModels.csproj">
+      <Project>{b16b6562-9b96-407a-afbd-d5d9f4b27eea}</Project>
+      <Name>DataModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
