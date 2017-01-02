@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using DataModels;
 using Moq;
 using NUnit.Framework;
@@ -12,6 +13,10 @@ namespace PersonSearch.Test.Controllers
     [TestFixture]
     public class PersonSearchControllerTest
     {
+        private Mock<IPersonSearchService> _personSearchServiceMock;
+
+        private PersonSearchController _personSearchController;
+
         [SetUp]
         public void Setup()
         {
@@ -19,11 +24,23 @@ namespace PersonSearch.Test.Controllers
             _personSearchController = new PersonSearchController(_personSearchServiceMock.Object);
         }
 
-        // My stupid auto formatter wants these to be below the SetUp method. Typically, I would place these
-        // at the top of the test class
-        private Mock<IPersonSearchService> _personSearchServiceMock;
+        #region Index() Tests
 
-        private PersonSearchController _personSearchController;
+        [Test]
+        public void Index_ReturnsIndexView()
+        {
+            const string expectedViewName = "";
+
+            // Act
+            var actualViewName = ((ViewResult) _personSearchController.Index()).ViewName;
+
+            // Assert
+            Assert.AreEqual(expectedViewName, actualViewName);
+        }
+
+        #endregion
+
+        #region SearchPeople() Tests
 
         [Test]
         public void SearchPeople_ReturnsPeople()
@@ -86,5 +103,7 @@ namespace PersonSearch.Test.Controllers
             Assert.AreEqual(expectedAddress, person.Address);
             Assert.AreEqual(expectedInterest, person.Interests.Single());
         }
+
+        #endregion
     }
 }
