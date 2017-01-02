@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D6A6B388-F3E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearch.Test", "PersonSearch.Test\PersonSearch.Test.csproj", "{2ED5ABE9-B827-4D54-82D9-D969137AFAF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearchServices", "PersonSearchCore\PersonSearchServices.csproj", "{2C5F864C-F293-47B1-B685-E3DE721EA7CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2ED5ABE9-B827-4D54-82D9-D969137AFAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED5ABE9-B827-4D54-82D9-D969137AFAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED5ABE9-B827-4D54-82D9-D969137AFAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C5F864C-F293-47B1-B685-E3DE721EA7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5F864C-F293-47B1-B685-E3DE721EA7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5F864C-F293-47B1-B685-E3DE721EA7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5F864C-F293-47B1-B685-E3DE721EA7CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 		{79611D5A-E8BC-4D9D-AE7F-5D1C325FBBEC} = {03926A19-9BB2-466B-9E63-835FD39CB734}
 		{B16B6562-9B96-407A-AFBD-D5D9F4B27EEA} = {03926A19-9BB2-466B-9E63-835FD39CB734}
 		{2ED5ABE9-B827-4D54-82D9-D969137AFAF1} = {D6A6B388-F3E1-4FCD-B271-C9BC7DB7A67D}
+		{2C5F864C-F293-47B1-B685-E3DE721EA7CE} = {227AB90C-C3FA-48A5-9AE6-C78730245C12}
 	EndGlobalSection
 EndGlobal
