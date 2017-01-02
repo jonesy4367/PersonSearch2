@@ -1,3 +1,7 @@
+using DataAccess;
+using PersonSearchServices;
+using PersonSearchServices.Interfaces;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(PersonSearch.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(PersonSearch.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +65,8 @@ namespace PersonSearch.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IPersonSearchService>().To<PersonSearchService>();
+            kernel.Bind<PeopleContext>().ToSelf().InRequestScope();
         }        
     }
 }

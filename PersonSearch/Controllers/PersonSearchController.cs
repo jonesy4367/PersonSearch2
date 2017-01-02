@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using PersonSearch.Models.PersonSearch;
-using PersonSearchCore.Interfaces;
+using PersonSearchServices.Interfaces;
 
 namespace PersonSearch.Controllers
 {

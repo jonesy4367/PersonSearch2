@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using DataModels;
+using DataAccess.Models;
 
-namespace PersonSearchCore.Interfaces
+namespace PersonSearchServices.Interfaces
 {
     public interface IPersonSearchService
     {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
 
-namespace DataModels
+namespace DataAccess.Models
 {
     public class State
     {
