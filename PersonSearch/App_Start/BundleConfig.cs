@@ -27,7 +27,8 @@ namespace PersonSearch
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
-                "~/Content/site.css"));
+                "~/Content/site.css",
+                "~/Content/Custom/PersonSearch.css"));
         }
     }
 }

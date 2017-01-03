@@ -1,0 +1,12 @@
+﻿table, td {
+    border: 1px solid black;
+}
+
+.no-border {
+    border: none;
+}
+
+.interest_td {
+    border-bottom: 1px solid black;
+}
+

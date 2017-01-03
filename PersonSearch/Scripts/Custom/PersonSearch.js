@@ -18,13 +18,23 @@
             $.each(data, function(personIndex, person) {
                 var interestsHtml = "";
 
-                if (person.Interests) {
-                    interestsHtml += "<table>";
+                var interestsLength = person.Interests.length;
 
-                    $.each(person.Interests, function(interestIndex, interest) {
+                if (person.Interests) {
+                    interestsHtml += "<table class='no-border'>";
+
+                    $.each(person.Interests, function (interestIndex, interest) {
+                        var tdClass;
+
+                        if (interestIndex === interestsLength - 1) {
+                            tdClass = "no-border";
+                        } else {
+                            tdClass = "no-border interest_td";
+                        }
+
                         interestsHtml +=
                             "<tr>" +
-                            "<td>" + interest + "</td>" +
+                            "<td class='" + tdClass + "'>" + interest + "</td>" +
                             "</tr>";
                     });
 
