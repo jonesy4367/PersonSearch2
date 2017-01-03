@@ -21,21 +21,7 @@ namespace PersonSearch.Controllers
 
         public JsonResult SearchPeople(string partialName)
         {
-            var personData = _personSearchService.SearchPeople(partialName);
-
-            return Json(personData
-                .Select(p => new PersonModel
-                {
-                    FullName = $"{p.FirstName} {p.LastName}",
-                    Age = p.Age,
-                    Address =
-                        $"{p.Address.StreetAddress} {p.Address.City.Name}, {p.Address.City.State.Abbreviation} {p.Address.ZipCode}",
-                    Interests = p
-                        .Interests
-                        .Select(i => i.Name)
-                        .ToList()
-                })
-                .ToList());
+            return Json("");
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DataAccess;
 using DataAccess.Models;
 using PersonSearchServices.Interfaces;
+using System.Linq;
+using PersonSearchServices.Dtos;
 
 namespace PersonSearchServices
 {
@@ -15,9 +16,14 @@ namespace PersonSearchServices
             _peopleContext = peopleContext;
         }
 
-        public IReadOnlyCollection<Person> SearchPeople(string partialName)
+        public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)
         {
-            throw new NotImplementedException();
+            //return _peopleContext
+            //    .People
+            //    .Where(p => p.FirstName == "Bob")
+            //    .ToList();
+
+            return null;
         }
     }
 }

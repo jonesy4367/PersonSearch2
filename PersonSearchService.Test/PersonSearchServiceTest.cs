@@ -67,8 +67,40 @@ namespace PersonSearchService.Test
             _peopleContextMock.Setup(p => p.Cities).Returns(_cityDbSetMock.Object);
             _peopleContextMock.Setup(p => p.States).Returns(_stateDbSetMock.Object);
             _peopleContextMock.Setup(p => p.Interests).Returns(_interestDbSetMock.Object);
+
+            _personSearchService = new PersonSearchServices.PersonSearchService(_peopleContextMock.Object);
         }
 
+        #region GetPeopleByPartialName() Tests
+
+        [Test]
+        public void GetPeopleByPartialName_PartialNameIsBo_ReturnsBobLawblaw()
+        {
+            //const string partialName = "bo";
+            //var expectedPerson = _personData.Single(p => p.FirstName == "Bob" && p.LastName == "Lawblaw");
+            
+            //// Act
+            //var people = _personSearchService.GetPeopleByPartialName(partialName);
+
+            //// Assert
+            //var actualPerson = people.Single();
+            //Assert.AreSame(expectedPerson, actualPerson);
+            //Assert.AreSame(_address1, actualPerson.Address);
+        }
+
+        #endregion
+
+        private static void SetupMock<T>(Mock dbSetMock, IQueryable<T> data) where T : class
+        {
+            var dbSetQueryable = dbSetMock.As<IQueryable<T>>();
+            dbSetQueryable.Setup(p => p.Provider).Returns(data.Provider);
+            dbSetQueryable.Setup(p => p.Expression).Returns(data.Expression);
+            dbSetQueryable.Setup(p => p.ElementType).Returns(data.ElementType);
+            dbSetQueryable.Setup(p => p.GetEnumerator()).Returns(data.GetEnumerator);
+        }
+
+        // It turns out that all of this data isn't actually needed since I'm asserting that the actual
+        // objects are returned, but I'm leaving it here to demo setting up fake data
         private void GenerateData()
         {
             _personData = BuildPeople();
@@ -76,6 +108,33 @@ namespace PersonSearchService.Test
             _cityData = BuildCities();
             _stateData = BuildStates();
             _interestData = BuildInterests();
+
+            _person1.Address = _address1;
+            _person1.Interests.Add(_interest1);
+
+            _person2.Address = _address2;
+            _person2.Interests.Add(_interest1);
+            _person2.Interests.Add(_interest2);
+
+            _address1.City = _city1;
+            _address1.People.Add(_person1);
+
+            _address2.City = _city2;
+            _address2.People.Add(_person2);
+
+            _city1.State = _state1;
+            _city1.Addresses.Add(_address1);
+
+            _city2.State = _state2;
+            _city2.Addresses.Add(_address2);
+
+            _state1.Cities.Add(_city1);
+            _state2.Cities.Add(_city2);
+
+            _interest1.People.Add(_person1);
+            _interest1.People.Add(_person2);
+
+            _interest2.People.Add(_person2);
         }
 
         private List<Person> BuildPeople()
@@ -84,13 +143,9 @@ namespace PersonSearchService.Test
             {
                 PersonId = 1,
                 FirstName = "Bob",
-                LastName = "LawBlob",
+                LastName = "Lawblaw",
                 Age = 43,
-                Address = _address1,
-                Interests = new List<Interest>
-                {
-                    _interest1
-                }
+                Interests = new List<Interest>()
             };
 
             _person2 = new Person
@@ -99,12 +154,7 @@ namespace PersonSearchService.Test
                 FirstName = "Steve",
                 LastName = "Schmeve",
                 Age = 36,
-                Address = _address2,
-                Interests = new List<Interest>
-                {
-                    _interest1,
-                    _interest2
-                }
+                Interests = new List<Interest>()
             };
 
             return new List<Person>
@@ -120,22 +170,14 @@ namespace PersonSearchService.Test
             {
                 StreetAddress = "123 Street St",
                 ZipCode = "83483",
-                City = _city1,
-                People = new List<Person>
-                {
-                    _person1
-                }
+                People = new List<Person>()
             };
 
             _address2 = new Address
             {
                 StreetAddress = "456 Avenue Ave",
                 ZipCode = "90298",
-                City = _city2,
-                People = new List<Person>
-                {
-                    _person2
-                }
+                People = new List<Person>()
             };
 
             return new List<Address>
@@ -150,21 +192,13 @@ namespace PersonSearchService.Test
             _city1 = new City
             {
                 Name = "Logan",
-                State = _state1,
-                Addresses = new List<Address>
-                {
-                    _address1
-                }
+                Addresses = new List<Address>()
             };
 
             _city2 = new City
             {
                 Name = "Nashville",
-                State = _state2,
-                Addresses = new List<Address>
-                {
-                    _address2
-                }
+                Addresses = new List<Address>()
             };
 
             return new List<City>
@@ -180,20 +214,14 @@ namespace PersonSearchService.Test
             {
                 Name = "Utah",
                 Abbreviation = "UT",
-                Cities = new List<City>
-                {
-                    _city1
-                }
+                Cities = new List<City>()
             };
 
             _state2 = new State
             {
                 Name = "Tennessee",
                 Abbreviation = "TN",
-                Cities = new List<City>
-                {
-                    _city2
-                }
+                Cities = new List<City>()
             };
 
             return new List<State>
@@ -208,20 +236,13 @@ namespace PersonSearchService.Test
             _interest1 = new Interest
             {
                 Name = "Pizza",
-                People = new List<Person>
-                {
-                    _person1,
-                    _person2
-                }
+                People = new List<Person>()
             };
 
             _interest2 = new Interest
             {
                 Name = "Cooking",
-                People = new List<Person>
-                {
-                    _person2
-                }
+                People = new List<Person>()
             };
 
             return new List<Interest>
@@ -229,15 +250,6 @@ namespace PersonSearchService.Test
                 _interest1,
                 _interest2
             };
-        }
-
-        private static void SetupMock<T>(Mock dbSetMock, IQueryable<T> data) where T : class
-        {
-            var dbSetQueryable = dbSetMock.As<IQueryable<T>>();
-            dbSetQueryable.Setup(p => p.Provider).Returns(data.Provider);
-            dbSetQueryable.Setup(p => p.Expression).Returns(data.Expression);
-            dbSetQueryable.Setup(p => p.ElementType).Returns(data.ElementType);
-            dbSetQueryable.Setup(p => p.GetEnumerator()).Returns(data.GetEnumerator);
         }
     }
 }

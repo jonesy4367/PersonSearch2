@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using DataAccess.Models;
+using PersonSearchServices.Dtos;
 
 namespace PersonSearchServices.Interfaces
 {
     public interface IPersonSearchService
     {
-        IReadOnlyCollection<Person> SearchPeople(string partialName);
+        IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName);
     }
 }
