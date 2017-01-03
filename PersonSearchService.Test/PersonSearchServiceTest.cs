@@ -74,10 +74,10 @@ namespace PersonSearchService.Test
         #region GetPeopleByPartialName() Tests
 
         [Test]
-        public void GetPeopleByPartialName_PartialNameIsBo_ReturnsBobLawblaw()
+        [TestCase("bo")]
+        [TestCase("BO")]
+        public void GetPeopleByPartialName_PartialNameIsBo_ReturnsBobLawblaw(string partialName)
         {
-            const string partialName = "bo";
-
             var expectedFullName = $"{_person1.FirstName} {_person1.LastName}";
             var expectedAddress = $"{_address1.StreetAddress} {_city1.Name}, {_state1.Abbreviation} {_address1.ZipCode}";
             var expectedAge = _person1.Age;
@@ -94,6 +94,21 @@ namespace PersonSearchService.Test
 
             var actualInterest = actualPerson.Interests.Single();
             Assert.AreEqual(expectedInterest, actualInterest);
+        }
+
+        [Test]
+        [TestCase("sch")]
+        [TestCase("SCH")]
+        public void GetPeopleByPartialName_PartialNameIsSch_ReturnsSteveSchmeve(string partialName)
+        {
+            var expectedFullName = $"{_person2.FirstName} {_person2.LastName}";
+
+            // Act
+            var people = _personSearchService.GetPeopleByPartialName(partialName);
+
+            // Assert
+            var actualPerson = people.Single();
+            Assert.AreEqual(expectedFullName, actualPerson.FullName);
         }
 
         #endregion
