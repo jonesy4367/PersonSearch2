@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using PersonSearch.Models.PersonSearch;
+﻿using System.Web.Mvc;
 using PersonSearchServices.Interfaces;
 
 namespace PersonSearch.Controllers
@@ -21,7 +19,8 @@ namespace PersonSearch.Controllers
 
         public JsonResult SearchPeople(string partialName)
         {
-            return Json("");
+            var people = _personSearchService.GetPeopleByPartialName(partialName);
+            return Json(people);
         }
     }
 }

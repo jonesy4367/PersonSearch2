@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using DataAccess.Models;
 using Moq;
 using NUnit.Framework;
 using PersonSearch.Controllers;
-using PersonSearch.Models.PersonSearch;
+using PersonSearchServices.Dtos;
 using PersonSearchServices.Interfaces;
 
 namespace PersonSearch.Test.Controllers
@@ -45,11 +44,24 @@ namespace PersonSearch.Test.Controllers
         [Test]
         public void SearchPeople_ReturnsPeople()
         {
+            const string partialName = "blah";
+
+            var expectedPersonDto = new PersonDto();
+
             // Arrange
+            _personSearchServiceMock
+                .Setup(p => p.GetPeopleByPartialName(partialName))
+                .Returns(new List<PersonDto>
+                {
+                    expectedPersonDto
+                });
 
             // Act
+            var people = (List<PersonDto>) _personSearchController.SearchPeople(partialName).Data;
 
             // Assert
+            var actualPersonDto = people.Single();
+            Assert.AreSame(expectedPersonDto, actualPersonDto);
         }
 
         #endregion
