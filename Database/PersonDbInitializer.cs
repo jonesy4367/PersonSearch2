@@ -93,7 +93,7 @@ namespace DataAccess
             _person2 = new Person
             {
                 FirstName = "Steve",
-                LastName = "Schmeve",
+                LastName = "Schmevel",
                 Age = 36,
                 Interests = new List<Interest>()
             };

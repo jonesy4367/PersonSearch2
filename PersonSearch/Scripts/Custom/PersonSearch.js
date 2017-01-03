@@ -15,6 +15,14 @@
         function generateTableContents(data) {
             var html = "";
 
+            html +=
+                "<tr>" +
+                "<td>Photo</td>" +
+                "<td>Name</td>" +
+                "<td>Address</td>" +
+                "<td>Interests</td>" +
+                "</tr>";
+
             $.each(data, function(personIndex, person) {
                 var interestsHtml = "";
 
@@ -41,9 +49,22 @@
                     interestsHtml += "</table>";
                 }
 
-                html +=
-                    "<tr>" +
-                    "<td>" + person.FullName + "</td>" +
+                html += "<tr>";
+                html += "<td>";
+
+                if (person.Photo) {
+                    var strImage = String.fromCharCode.apply(null, person.Photo);
+                    var base64Image = window.btoa(strImage).replace(/.{76}(?=.)/g, "$&\n");
+                    html += "<div class='image-container'>";
+                    html += "<img src='data:image/png;base64, " + base64Image + "'/>";
+                    html += "</div>";
+                } else {
+                    html += "No photo found";
+                }
+
+                html += "</td>";
+
+                html += "<td>" + person.FullName + "</td>" +
                     "<td>" + person.Address + "</td>" +
                     "<td>" + interestsHtml + "</td>" +
                     "</tr>";

@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Threading;
+using System.Web.Mvc;
 using PersonSearchServices.Interfaces;
 
 namespace PersonSearch.Controllers
@@ -19,6 +21,8 @@ namespace PersonSearch.Controllers
 
         public JsonResult SearchPeople(string partialName)
         {
+            Thread.Sleep(TimeSpan.FromSeconds(30));
+
             var people = _personSearchService.GetPeopleByPartialName(partialName);
             return Json(people);
         }

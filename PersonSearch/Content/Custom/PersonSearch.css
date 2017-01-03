@@ -10,3 +10,12 @@
     border-bottom: 1px solid black;
 }
 
+.image-container {
+    width: 100px;
+    height: 60px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
