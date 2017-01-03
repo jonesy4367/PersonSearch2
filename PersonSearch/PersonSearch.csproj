@@ -209,7 +209,7 @@
       <Project>{79611d5a-e8bc-4d9d-ae7f-5d1c325fbbec}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PersonSearchCore\PersonSearchServices.csproj">
+    <ProjectReference Include="..\PersonSearchServices\PersonSearchServices.csproj">
       <Project>{2c5f864c-f293-47b1-b685-e3de721ea7ce}</Project>
       <Name>PersonSearchServices</Name>
     </ProjectReference>

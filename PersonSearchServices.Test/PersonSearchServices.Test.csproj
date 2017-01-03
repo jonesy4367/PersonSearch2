@@ -7,8 +7,8 @@
     <ProjectGuid>{97ACE84E-7EC4-4ACE-AB3B-7E27AEA69959}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PersonSearchService.Test</RootNamespace>
-    <AssemblyName>PersonSearchService.Test</AssemblyName>
+    <RootNamespace>PersonSearchServices.Test</RootNamespace>
+    <AssemblyName>PersonSearchServices.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -78,7 +78,7 @@
       <Project>{79611d5a-e8bc-4d9d-ae7f-5d1c325fbbec}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PersonSearchCore\PersonSearchServices.csproj">
+    <ProjectReference Include="..\PersonSearchServices\PersonSearchServices.csproj">
       <Project>{2C5F864C-F293-47B1-B685-E3DE721EA7CE}</Project>
       <Name>PersonSearchServices</Name>
     </ProjectReference>

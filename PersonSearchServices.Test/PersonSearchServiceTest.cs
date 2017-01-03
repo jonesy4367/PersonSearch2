@@ -7,7 +7,7 @@ using DataAccess.Models;
 using Moq;
 using NUnit.Framework;
 
-namespace PersonSearchService.Test
+namespace PersonSearchServices.Test
 {
     [TestFixture]
     public class PersonSearchServiceTest

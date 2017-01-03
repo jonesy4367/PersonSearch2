@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D6A6B388-F3E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearch.Test", "PersonSearch.Test\PersonSearch.Test.csproj", "{2ED5ABE9-B827-4D54-82D9-D969137AFAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearchServices", "PersonSearchCore\PersonSearchServices.csproj", "{2C5F864C-F293-47B1-B685-E3DE721EA7CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearchServices", "PersonSearchServices\PersonSearchServices.csproj", "{2C5F864C-F293-47B1-B685-E3DE721EA7CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearchService.Test", "PersonSearchService.Test\PersonSearchService.Test.csproj", "{97ACE84E-7EC4-4ACE-AB3B-7E27AEA69959}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonSearchServices.Test", "PersonSearchServices.Test\PersonSearchServices.Test.csproj", "{97ACE84E-7EC4-4ACE-AB3B-7E27AEA69959}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
