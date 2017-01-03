@@ -55,7 +55,8 @@
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\State.cs" />
-    <Compile Include="PeopleContext.cs" />
+    <Compile Include="PersonContext.cs" />
+    <Compile Include="PersonDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

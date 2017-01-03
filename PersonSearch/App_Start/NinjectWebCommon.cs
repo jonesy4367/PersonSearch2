@@ -66,7 +66,7 @@ namespace PersonSearch.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IPersonSearchService>().To<PersonSearchService>();
-            kernel.Bind<PeopleContext>().ToSelf().InRequestScope();
+            kernel.Bind<PersonContext>().ToSelf().InRequestScope();
         }        
     }
 }

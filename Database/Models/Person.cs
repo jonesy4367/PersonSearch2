@@ -25,8 +25,7 @@ namespace DataAccess.Models
         public short Age { get; set; }
 
         public int AddressId { get; set; }
-
-        [Required]
+        
         [MaxLength(200)]
         public string ImagePath { get; set; }
 

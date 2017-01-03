@@ -4,10 +4,11 @@ using DataAccess.Models;
 
 namespace DataAccess
 {
-    public class PeopleContext : DbContext
+    public class PersonContext : DbContext
     {
-        public PeopleContext() : base("PeopleContext")
+        public PersonContext() : base("Person")
         {
+            Database.SetInitializer(new PersonDbInitializer());
         }
 
         public virtual DbSet<Person> People { get; set; }

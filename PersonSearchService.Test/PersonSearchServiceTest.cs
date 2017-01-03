@@ -11,7 +11,7 @@ namespace PersonSearchService.Test
     [TestFixture]
     public class PersonSearchServiceTest
     {
-        private Mock<PeopleContext> _peopleContextMock;
+        private Mock<PersonContext> _personContextMock;
 
         private Mock<DbSet<Person>> _personDbSetMock;
         private Mock<DbSet<Address>> _addressDbSetMock;
@@ -61,14 +61,14 @@ namespace PersonSearchService.Test
             _interestDbSetMock = new Mock<DbSet<Interest>>();
             SetupMock(_interestDbSetMock, _interestData.AsQueryable());
 
-            _peopleContextMock = new Mock<PeopleContext>();
-            _peopleContextMock.Setup(p => p.People).Returns(_personDbSetMock.Object);
-            _peopleContextMock.Setup(p => p.Addresses).Returns(_addressDbSetMock.Object);
-            _peopleContextMock.Setup(p => p.Cities).Returns(_cityDbSetMock.Object);
-            _peopleContextMock.Setup(p => p.States).Returns(_stateDbSetMock.Object);
-            _peopleContextMock.Setup(p => p.Interests).Returns(_interestDbSetMock.Object);
+            _personContextMock = new Mock<PersonContext>();
+            _personContextMock.Setup(p => p.People).Returns(_personDbSetMock.Object);
+            _personContextMock.Setup(p => p.Addresses).Returns(_addressDbSetMock.Object);
+            _personContextMock.Setup(p => p.Cities).Returns(_cityDbSetMock.Object);
+            _personContextMock.Setup(p => p.States).Returns(_stateDbSetMock.Object);
+            _personContextMock.Setup(p => p.Interests).Returns(_interestDbSetMock.Object);
 
-            _personSearchService = new PersonSearchServices.PersonSearchService(_peopleContextMock.Object);
+            _personSearchService = new PersonSearchServices.PersonSearchService(_personContextMock.Object);
         }
 
         #region GetPeopleByPartialName() Tests
@@ -174,6 +174,7 @@ namespace PersonSearchService.Test
         {
             _address1 = new Address
             {
+                AddressId = 1,
                 StreetAddress = "123 Street St",
                 ZipCode = "83483",
                 People = new List<Person>()
@@ -181,6 +182,7 @@ namespace PersonSearchService.Test
 
             _address2 = new Address
             {
+                AddressId = 2,
                 StreetAddress = "456 Avenue Ave",
                 ZipCode = "90298",
                 People = new List<Person>()
