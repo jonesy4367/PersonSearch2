@@ -19,7 +19,7 @@ namespace PersonSearchServices
         {
             _personContext = personContext;
             _fileSystem = fileSystem;
-            _imagesDirectory = rootDirectory + "//Images//";
+            _imagesDirectory = rootDirectory + "//PersonImages//";
         }
 
         public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)

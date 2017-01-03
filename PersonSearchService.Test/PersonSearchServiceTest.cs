@@ -97,7 +97,7 @@ namespace PersonSearchService.Test
 
             // Arrange
             _fileSystemMock
-                .Setup(f => f.File.ReadAllBytes(RootDirectory + "//Images//" + _person1.ImageFileName))
+                .Setup(f => f.File.ReadAllBytes(RootDirectory + "//PersonImages//" + _person1.ImageFileName))
                 .Returns(expectedPhoto);
             
             // Act

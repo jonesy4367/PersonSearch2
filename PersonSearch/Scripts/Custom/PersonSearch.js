@@ -1,5 +1,6 @@
 ﻿$(document).ready(function() {
     $("#searchButton").on("click", function() {
+        $(".loading-image").show();
 
         function convertFormToJson(form) {
             var formArray = form.serializeArray();
@@ -80,6 +81,7 @@
             data: JSON.stringify(convertFormToJson($("#personSearchForm"))),
             success: function(result) {
                 $("#personTable").html(generateTableContents(result));
+                $(".loading-image").hide();
             }
         });
     });
