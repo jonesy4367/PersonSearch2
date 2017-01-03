@@ -76,16 +76,24 @@ namespace PersonSearchService.Test
         [Test]
         public void GetPeopleByPartialName_PartialNameIsBo_ReturnsBobLawblaw()
         {
-            //const string partialName = "bo";
-            //var expectedPerson = _personData.Single(p => p.FirstName == "Bob" && p.LastName == "Lawblaw");
-            
-            //// Act
-            //var people = _personSearchService.GetPeopleByPartialName(partialName);
+            const string partialName = "bo";
 
-            //// Assert
-            //var actualPerson = people.Single();
-            //Assert.AreSame(expectedPerson, actualPerson);
-            //Assert.AreSame(_address1, actualPerson.Address);
+            var expectedFullName = $"{_person1.FirstName} {_person1.LastName}";
+            var expectedAddress = $"{_address1.StreetAddress} {_city1.Name}, {_state1.Abbreviation} {_address1.ZipCode}";
+            var expectedAge = _person1.Age;
+            var expectedInterest = _interest1.Name;
+            
+            // Act
+            var people = _personSearchService.GetPeopleByPartialName(partialName);
+
+            // Assert
+            var actualPerson = people.Single();
+            Assert.AreEqual(expectedFullName, actualPerson.FullName);
+            Assert.AreEqual(expectedAddress, actualPerson.Address);
+            Assert.AreEqual(expectedAge, actualPerson.Age);
+
+            var actualInterest = actualPerson.Interests.Single();
+            Assert.AreEqual(expectedInterest, actualInterest);
         }
 
         #endregion
@@ -98,9 +106,7 @@ namespace PersonSearchService.Test
             dbSetQueryable.Setup(p => p.ElementType).Returns(data.ElementType);
             dbSetQueryable.Setup(p => p.GetEnumerator()).Returns(data.GetEnumerator);
         }
-
-        // It turns out that all of this data isn't actually needed since I'm asserting that the actual
-        // objects are returned, but I'm leaving it here to demo setting up fake data
+        
         private void GenerateData()
         {
             _personData = BuildPeople();

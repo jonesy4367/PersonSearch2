@@ -18,12 +18,20 @@ namespace PersonSearchServices
 
         public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)
         {
-            //return _peopleContext
-            //    .People
-            //    .Where(p => p.FirstName == "Bob")
-            //    .ToList();
-
-            return null;
+            return _peopleContext
+                .People
+                .Where(p => p.FirstName.ToLower().Contains(partialName))
+                .Select(p => new PersonDto
+                {
+                    FullName = $"{p.FirstName} {p.LastName}",
+                    Address =
+                        $"{p.Address.StreetAddress} {p.Address.City.Name}, {p.Address.City.State.Abbreviation} {p.Address.ZipCode}",
+                    Age = p.Age,
+                    Interests = p.Interests
+                        .Select(i => i.Name)
+                        .ToList()
+                })
+                .ToList();
         }
     }
 }
