@@ -4,7 +4,7 @@ using DataAccess.Models;
 
 namespace DataAccess
 {
-    public class PersonDbInitializer : DropCreateDatabaseIfModelChanges<PersonContext>
+    public class PersonDbInitializer : DropCreateDatabaseAlways<PersonContext>
     {
         private Person _person1;
         private Person _person2;
