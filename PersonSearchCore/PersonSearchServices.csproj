@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Dtos\PersonDto.cs" />
     <Compile Include="Interfaces\IPersonSearchService.cs" />
+    <Compile Include="NinjectModule\PersonSearchNinjectModule.cs" />
     <Compile Include="PersonSearchService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

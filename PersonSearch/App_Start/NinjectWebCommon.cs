@@ -1,6 +1,7 @@
 using DataAccess;
 using PersonSearchServices;
 using PersonSearchServices.Interfaces;
+using PersonSearchServices.NinjectModule;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(PersonSearch.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(PersonSearch.App_Start.NinjectWebCommon), "Stop")]
@@ -69,6 +70,8 @@ namespace PersonSearch.App_Start
             // but there is no way to specify InRequestScope in a NinjectModule that is not in the web project
             kernel.Bind<IPersonSearchService>().To<PersonSearchService>();
             kernel.Bind<PersonContext>().ToSelf().InRequestScope();
+
+            kernel.Load(new PersonSearchNinjectModule());
         }        
     }
 }

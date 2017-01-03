@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO.Abstractions;
 using System.Linq;
 using DataAccess;
 using DataAccess.Models;
@@ -18,6 +19,8 @@ namespace PersonSearchService.Test
         private Mock<DbSet<City>> _cityDbSetMock;
         private Mock<DbSet<State>> _stateDbSetMock;
         private Mock<DbSet<Interest>> _interestDbSetMock;
+
+        private Mock<IFileSystem> _fileSystemMock;
 
         private PersonSearchServices.PersonSearchService _personSearchService;
 
@@ -68,7 +71,11 @@ namespace PersonSearchService.Test
             _personContextMock.Setup(p => p.States).Returns(_stateDbSetMock.Object);
             _personContextMock.Setup(p => p.Interests).Returns(_interestDbSetMock.Object);
 
-            _personSearchService = new PersonSearchServices.PersonSearchService(_personContextMock.Object);
+            _fileSystemMock = new Mock<IFileSystem>();
+
+            _personSearchService = new PersonSearchServices.PersonSearchService(
+                _personContextMock.Object,
+                _fileSystemMock.Object);
         }
 
         #region GetPeopleByPartialName() Tests

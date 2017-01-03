@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO.Abstractions;
 using DataAccess;
 using DataAccess.Models;
 using PersonSearchServices.Interfaces;
@@ -10,10 +11,12 @@ namespace PersonSearchServices
     public class PersonSearchService : IPersonSearchService
     {
         private readonly PersonContext _personContext;
+        private readonly IFileSystem _fileSystem;
 
-        public PersonSearchService(PersonContext personContext)
+        public PersonSearchService(PersonContext personContext, IFileSystem fileSystem)
         {
             _personContext = personContext;
+            _fileSystem = fileSystem;
         }
 
         public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)
