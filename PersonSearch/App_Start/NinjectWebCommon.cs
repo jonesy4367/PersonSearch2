@@ -1,3 +1,4 @@
+using System.Web.Hosting;
 using DataAccess;
 using PersonSearchServices;
 using PersonSearchServices.Interfaces;
@@ -66,9 +67,11 @@ namespace PersonSearch.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            var rootDirectory = HostingEnvironment.ApplicationPhysicalPath;
+
             // I would to have liked not having to have a reference to the data project in the web project,
             // but there is no way to specify InRequestScope in a NinjectModule that is not in the web project
-            kernel.Bind<IPersonSearchService>().To<PersonSearchService>();
+            kernel.Bind<IPersonSearchService>().To<PersonSearchService>().WithConstructorArgument("rootDirectory", rootDirectory);
             kernel.Bind<PersonContext>().ToSelf().InRequestScope();
 
             kernel.Load(new PersonSearchNinjectModule());

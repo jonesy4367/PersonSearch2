@@ -86,6 +86,7 @@ namespace DataAccess
                 FirstName = "Bob",
                 LastName = "Lawblaw",
                 Age = 43,
+                ImageFileName = "WIN_20160814_11_02_20_Pro.jpg",
                 Interests = new List<Interest>()
             };
 

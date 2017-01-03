@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO.Abstractions;
 using DataAccess;
 using DataAccess.Models;
@@ -12,11 +13,13 @@ namespace PersonSearchServices
     {
         private readonly PersonContext _personContext;
         private readonly IFileSystem _fileSystem;
+        private string _imagesDirectory;
 
-        public PersonSearchService(PersonContext personContext, IFileSystem fileSystem)
+        public PersonSearchService(PersonContext personContext, IFileSystem fileSystem, string rootDirectory)
         {
             _personContext = personContext;
             _fileSystem = fileSystem;
+            _imagesDirectory = rootDirectory + "//Images//";
         }
 
         public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)
@@ -41,7 +44,10 @@ namespace PersonSearchServices
                     Age = p.Age,
                     Interests = p.Interests
                         .Select(i => i.Name)
-                        .ToList()
+                        .ToList(),
+                    Photo = p.ImageFileName != null
+                        ? _fileSystem.File.ReadAllBytes(_imagesDirectory + p.ImageFileName)
+                        : null
                 })
                 .ToList();
         }

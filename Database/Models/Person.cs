@@ -27,7 +27,7 @@ namespace DataAccess.Models
         public int AddressId { get; set; }
         
         [MaxLength(200)]
-        public string ImagePath { get; set; }
+        public string ImageFileName { get; set; }
 
 
         public virtual Address Address { get; set; }

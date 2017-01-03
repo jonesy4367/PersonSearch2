@@ -44,6 +44,8 @@ namespace PersonSearchService.Test
         private Interest _interest1;
         private Interest _interest2;
 
+        private const string RootDirectory = "C:\\";
+
         [SetUp]
         public void Setup()
         {
@@ -75,7 +77,8 @@ namespace PersonSearchService.Test
 
             _personSearchService = new PersonSearchServices.PersonSearchService(
                 _personContextMock.Object,
-                _fileSystemMock.Object);
+                _fileSystemMock.Object,
+                RootDirectory);
         }
 
         #region GetPeopleByPartialName() Tests
@@ -89,6 +92,13 @@ namespace PersonSearchService.Test
             var expectedAddress = $"{_address1.StreetAddress} {_city1.Name}, {_state1.Abbreviation} {_address1.ZipCode}";
             var expectedAge = _person1.Age;
             var expectedInterest = _interest1.Name;
+
+            var expectedPhoto = new byte[] {0xA4, 0x54, 0x83};
+
+            // Arrange
+            _fileSystemMock
+                .Setup(f => f.File.ReadAllBytes(RootDirectory + "//Images//" + _person1.ImageFileName))
+                .Returns(expectedPhoto);
             
             // Act
             var people = _personSearchService.GetPeopleByPartialName(partialName);
@@ -98,6 +108,7 @@ namespace PersonSearchService.Test
             Assert.AreEqual(expectedFullName, actualPerson.FullName);
             Assert.AreEqual(expectedAddress, actualPerson.Address);
             Assert.AreEqual(expectedAge, actualPerson.Age);
+            Assert.AreSame(expectedPhoto, actualPerson.Photo);
 
             var actualInterest = actualPerson.Interests.Single();
             Assert.AreEqual(expectedInterest, actualInterest);
@@ -126,6 +137,9 @@ namespace PersonSearchService.Test
         {
             var expectedFullName1 = $"{_person1.FirstName} {_person1.LastName}";
             var expectedFullName2 = $"{_person2.FirstName} {_person2.LastName}";
+
+            // Arrange
+            _fileSystemMock.Setup(f => f.File.ReadAllBytes(It.IsAny<string>())).Returns(new byte[] {});
 
             // Act
             var people = _personSearchService.GetPeopleByPartialName(partialName);
@@ -191,6 +205,7 @@ namespace PersonSearchService.Test
                 FirstName = "Bob",
                 LastName = "Lawblaw",
                 Age = 43,
+                ImageFileName = "apictureofme",
                 Interests = new List<Interest>()
             };
 
