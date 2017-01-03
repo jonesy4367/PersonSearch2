@@ -19,12 +19,17 @@ namespace PersonSearchServices
 
         public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)
         {
-            return _personContext
-                .People
-                .Where(
-                    p =>
+            IQueryable<Person> peopleData = _personContext.People;
+
+            if (!string.IsNullOrWhiteSpace(partialName))
+            {
+                peopleData = peopleData
+                    .Where(p =>
                         p.FirstName.ToLower().Contains(partialName.ToLower()) ||
-                        p.LastName.ToLower().Contains(partialName.ToLower()))
+                        p.LastName.ToLower().Contains(partialName.ToLower()));
+            }
+
+            return peopleData
                 .ToList()
                 .Select(p => new PersonDto
                 {

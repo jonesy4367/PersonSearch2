@@ -111,6 +111,24 @@ namespace PersonSearchService.Test
             Assert.AreEqual(expectedFullName, actualPerson.FullName);
         }
 
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("  ")]
+        public void GetPeopleByPartialName_PartialNameIsNullOrEmpty_ReturnsAllPeople(string partialName)
+        {
+            var expectedFullName1 = $"{_person1.FirstName} {_person1.LastName}";
+            var expectedFullName2 = $"{_person2.FirstName} {_person2.LastName}";
+
+            // Act
+            var people = _personSearchService.GetPeopleByPartialName(partialName);
+
+            // Assert
+            Assert.AreEqual(2, people.Count);
+            Assert.IsTrue(people.Any(p => p.FullName == expectedFullName1));
+            Assert.IsTrue(people.Any(p => p.FullName == expectedFullName2));
+        }
+
         #endregion
 
         private static void SetupMock<T>(Mock dbSetMock, IQueryable<T> data) where T : class
