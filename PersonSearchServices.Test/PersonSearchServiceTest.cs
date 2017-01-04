@@ -22,27 +22,27 @@ namespace PersonSearchServices.Test
 
         private Mock<IFileSystem> _fileSystemMock;
 
-        private PersonSearchServices.PersonSearchService _personSearchService;
+        private PersonSearchService _personSearchService;
 
         private List<Person> _personData;
-        private Person _person1;
-        private Person _person2;
+        private Person _bobLawblaw;
+        private Person _steveSchmeve;
 
         private List<Address> _addressData;
-        private Address _address1;
-        private Address _address2;
+        private Address _123Street;
+        private Address _456Avenue;
 
         private List<City> _cityData;
-        private City _city1;
-        private City _city2;
+        private City _logan;
+        private City _nashville;
 
         private List<State> _stateData;
-        private State _state1;
-        private State _state2;
+        private State _utah;
+        private State _tennessee;
 
         private List<Interest> _interestData;
-        private Interest _interest1;
-        private Interest _interest2;
+        private Interest _pizza;
+        private Interest _cooking;
 
         private const string RootDirectory = "C:\\";
 
@@ -75,7 +75,7 @@ namespace PersonSearchServices.Test
 
             _fileSystemMock = new Mock<IFileSystem>();
 
-            _personSearchService = new PersonSearchServices.PersonSearchService(
+            _personSearchService = new PersonSearchService(
                 _personContextMock.Object,
                 _fileSystemMock.Object,
                 RootDirectory);
@@ -88,16 +88,16 @@ namespace PersonSearchServices.Test
         [TestCase("BO")]
         public void GetPeopleByPartialName_PartialNameIsBo_ReturnsBobLawblaw(string partialName)
         {
-            var expectedFullName = $"{_person1.FirstName} {_person1.LastName}";
-            var expectedAddress = $"{_address1.StreetAddress} {_city1.Name}, {_state1.Abbreviation} {_address1.ZipCode}";
-            var expectedAge = _person1.Age;
-            var expectedInterest = _interest1.Name;
+            var expectedFullName = $"{_bobLawblaw.FirstName} {_bobLawblaw.LastName}";
+            var expectedAddress = $"{_123Street.StreetAddress} {_logan.Name}, {_utah.Abbreviation} {_123Street.ZipCode}";
+            var expectedAge = _bobLawblaw.Age;
+            var expectedInterest = _pizza.Name;
 
             var expectedPhoto = new byte[] {0xA4, 0x54, 0x83};
 
             // Arrange
             _fileSystemMock
-                .Setup(f => f.File.ReadAllBytes(RootDirectory + "//PersonImages//" + _person1.ImageFileName))
+                .Setup(f => f.File.ReadAllBytes(RootDirectory + "//PersonImages//" + _bobLawblaw.ImageFileName))
                 .Returns(expectedPhoto);
             
             // Act
@@ -119,7 +119,7 @@ namespace PersonSearchServices.Test
         [TestCase("SCH")]
         public void GetPeopleByPartialName_PartialNameIsSch_ReturnsSteveSchmeve(string partialName)
         {
-            var expectedFullName = $"{_person2.FirstName} {_person2.LastName}";
+            var expectedFullName = $"{_steveSchmeve.FirstName} {_steveSchmeve.LastName}";
 
             // Act
             var people = _personSearchService.GetPeopleByPartialName(partialName);
@@ -135,8 +135,8 @@ namespace PersonSearchServices.Test
         [TestCase("  ")]
         public void GetPeopleByPartialName_PartialNameIsNullOrEmpty_ReturnsAllPeople(string partialName)
         {
-            var expectedFullName1 = $"{_person1.FirstName} {_person1.LastName}";
-            var expectedFullName2 = $"{_person2.FirstName} {_person2.LastName}";
+            var expectedFullName1 = $"{_bobLawblaw.FirstName} {_bobLawblaw.LastName}";
+            var expectedFullName2 = $"{_steveSchmeve.FirstName} {_steveSchmeve.LastName}";
 
             // Arrange
             _fileSystemMock.Setup(f => f.File.ReadAllBytes(It.IsAny<string>())).Returns(new byte[] {});
@@ -169,37 +169,37 @@ namespace PersonSearchServices.Test
             _stateData = BuildStates();
             _interestData = BuildInterests();
 
-            _person1.Address = _address1;
-            _person1.Interests.Add(_interest1);
+            _bobLawblaw.Address = _123Street;
+            _bobLawblaw.Interests.Add(_pizza);
 
-            _person2.Address = _address2;
-            _person2.Interests.Add(_interest1);
-            _person2.Interests.Add(_interest2);
+            _steveSchmeve.Address = _456Avenue;
+            _steveSchmeve.Interests.Add(_pizza);
+            _steveSchmeve.Interests.Add(_cooking);
 
-            _address1.City = _city1;
-            _address1.People.Add(_person1);
+            _123Street.City = _logan;
+            _123Street.People.Add(_bobLawblaw);
 
-            _address2.City = _city2;
-            _address2.People.Add(_person2);
+            _456Avenue.City = _nashville;
+            _456Avenue.People.Add(_steveSchmeve);
 
-            _city1.State = _state1;
-            _city1.Addresses.Add(_address1);
+            _logan.State = _utah;
+            _logan.Addresses.Add(_123Street);
 
-            _city2.State = _state2;
-            _city2.Addresses.Add(_address2);
+            _nashville.State = _tennessee;
+            _nashville.Addresses.Add(_456Avenue);
 
-            _state1.Cities.Add(_city1);
-            _state2.Cities.Add(_city2);
+            _utah.Cities.Add(_logan);
+            _tennessee.Cities.Add(_nashville);
 
-            _interest1.People.Add(_person1);
-            _interest1.People.Add(_person2);
+            _pizza.People.Add(_bobLawblaw);
+            _pizza.People.Add(_steveSchmeve);
 
-            _interest2.People.Add(_person2);
+            _cooking.People.Add(_steveSchmeve);
         }
 
         private List<Person> BuildPeople()
         {
-            _person1 = new Person
+            _bobLawblaw = new Person
             {
                 PersonId = 1,
                 FirstName = "Bob",
@@ -209,7 +209,7 @@ namespace PersonSearchServices.Test
                 Interests = new List<Interest>()
             };
 
-            _person2 = new Person
+            _steveSchmeve = new Person
             {
                 PersonId = 2,
                 FirstName = "Steve",
@@ -220,14 +220,14 @@ namespace PersonSearchServices.Test
 
             return new List<Person>
             {
-                _person1,
-                _person2
+                _bobLawblaw,
+                _steveSchmeve
             };
         }
 
         private List<Address> BuildAddresses()
         {
-            _address1 = new Address
+            _123Street = new Address
             {
                 AddressId = 1,
                 StreetAddress = "123 Street St",
@@ -235,7 +235,7 @@ namespace PersonSearchServices.Test
                 People = new List<Person>()
             };
 
-            _address2 = new Address
+            _456Avenue = new Address
             {
                 AddressId = 2,
                 StreetAddress = "456 Avenue Ave",
@@ -245,20 +245,20 @@ namespace PersonSearchServices.Test
 
             return new List<Address>
             {
-                _address1,
-                _address2
+                _123Street,
+                _456Avenue
             };
         }
 
         private List<City> BuildCities()
         {
-            _city1 = new City
+            _logan = new City
             {
                 Name = "Logan",
                 Addresses = new List<Address>()
             };
 
-            _city2 = new City
+            _nashville = new City
             {
                 Name = "Nashville",
                 Addresses = new List<Address>()
@@ -266,21 +266,21 @@ namespace PersonSearchServices.Test
 
             return new List<City>
             {
-                _city1,
-                _city2
+                _logan,
+                _nashville
             };
         }
 
         private List<State> BuildStates()
         {
-            _state1 = new State
+            _utah = new State
             {
                 Name = "Utah",
                 Abbreviation = "UT",
                 Cities = new List<City>()
             };
 
-            _state2 = new State
+            _tennessee = new State
             {
                 Name = "Tennessee",
                 Abbreviation = "TN",
@@ -289,20 +289,20 @@ namespace PersonSearchServices.Test
 
             return new List<State>
             {
-                _state1,
-                _state2
+                _utah,
+                _tennessee
             };
         }
 
         private List<Interest> BuildInterests()
         {
-            _interest1 = new Interest
+            _pizza = new Interest
             {
                 Name = "Pizza",
                 People = new List<Person>()
             };
 
-            _interest2 = new Interest
+            _cooking = new Interest
             {
                 Name = "Cooking",
                 People = new List<Person>()
@@ -310,8 +310,8 @@ namespace PersonSearchServices.Test
 
             return new List<Interest>
             {
-                _interest1,
-                _interest2
+                _pizza,
+                _cooking
             };
         }
     }

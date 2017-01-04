@@ -26,8 +26,8 @@
 
             $.each(data, function(personIndex, person) {
                 var interestsHtml = "";
-
-                if (person.Interests) {
+                
+                if (person.Interests.length > 0) {
                     interestsHtml += "<table class='no-border'>";
 
                     $.each(person.Interests, function (interestIndex, interest) {

@@ -9,6 +9,7 @@
 .image-container {
     width: 100px;
     height: 60px;
+    overflow: hidden;
 }
 
 .image-container img {

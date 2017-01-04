@@ -21,7 +21,7 @@ namespace PersonSearch.Controllers
 
         public JsonResult SearchPeople(string partialName)
         {
-            Thread.Sleep(TimeSpan.FromSeconds(15));
+            Thread.Sleep(TimeSpan.FromSeconds(10));
 
             var people = _personSearchService.GetPeopleByPartialName(partialName);
             return Json(people);
