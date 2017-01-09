@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO.Abstractions;
 using DataAccess;
 using DataAccess.Models;
@@ -13,7 +12,7 @@ namespace PersonSearchServices
     {
         private readonly PersonContext _personContext;
         private readonly IFileSystem _fileSystem;
-        private string _imagesDirectory;
+        private readonly string _imagesDirectory;
 
         public PersonSearchService(PersonContext personContext, IFileSystem fileSystem, string rootDirectory)
         {
@@ -28,10 +27,12 @@ namespace PersonSearchServices
 
             if (!string.IsNullOrWhiteSpace(partialName))
             {
+                var lowerPartialName = partialName.ToLower();
+
                 peopleData = peopleData
                     .Where(p =>
-                        p.FirstName.ToLower().Contains(partialName.ToLower()) ||
-                        p.LastName.ToLower().Contains(partialName.ToLower()));
+                        p.FirstName.ToLower().Contains(lowerPartialName) ||
+                        p.LastName.ToLower().Contains(lowerPartialName));
             }
 
             return peopleData
