@@ -73,6 +73,8 @@ namespace PersonSearchServices.Test
             _personContextMock.Setup(p => p.States).Returns(_stateDbSetMock.Object);
             _personContextMock.Setup(p => p.Interests).Returns(_interestDbSetMock.Object);
 
+            _personDbSetMock.Setup(p => p.Include(It.IsAny<string>())).Returns(_personDbSetMock.Object);
+
             _fileSystemMock = new Mock<IFileSystem>();
 
             _personSearchService = new PersonSearchService(
@@ -81,12 +83,12 @@ namespace PersonSearchServices.Test
                 RootDirectory);
         }
 
-        #region GetPeopleByPartialName() Tests
+        #region GetPeopleIncludeRelatedDataByPartialName() Tests
 
         [Test]
         [TestCase("bo")]
         [TestCase("BO")]
-        public void GetPeopleByPartialName_PartialNameIsBo_ReturnsBobLawblaw(string partialName)
+        public void GetPeopleIncludeRelatedDataByPartialName_PartialNameIsBo_ReturnsBobLawblaw(string partialName)
         {
             var expectedFullName = $"{_bobLawblaw.FirstName} {_bobLawblaw.LastName}";
             var expectedAddress = $"{_123Street.StreetAddress} {_logan.Name}, {_utah.Abbreviation} {_123Street.ZipCode}";
@@ -101,7 +103,7 @@ namespace PersonSearchServices.Test
                 .Returns(expectedPhoto);
             
             // Act
-            var people = _personSearchService.GetPeopleByPartialName(partialName);
+            var people = _personSearchService.GetPeopleIncludeRelatedDataByPartialName(partialName);
 
             // Assert
             var actualPerson = people.Single();
@@ -112,17 +114,23 @@ namespace PersonSearchServices.Test
 
             var actualInterest = actualPerson.Interests.Single();
             Assert.AreEqual(expectedInterest, actualInterest);
+
+            // Make sure the context call includes related data
+            _personDbSetMock.Verify(p => p.Include("Address"));
+            _personDbSetMock.Verify(p => p.Include("Interests"));
+            _personDbSetMock.Verify(p => p.Include("Address.City"));
+            _personDbSetMock.Verify(p => p.Include("Address.City.State"));
         }
 
         [Test]
         [TestCase("sch")]
         [TestCase("SCH")]
-        public void GetPeopleByPartialName_PartialNameIsSch_ReturnsSteveSchmeve(string partialName)
+        public void GetPeopleIncludeRelatedDataByPartialName_PartialNameIsSch_ReturnsSteveSchmeve(string partialName)
         {
             var expectedFullName = $"{_steveSchmeve.FirstName} {_steveSchmeve.LastName}";
 
             // Act
-            var people = _personSearchService.GetPeopleByPartialName(partialName);
+            var people = _personSearchService.GetPeopleIncludeRelatedDataByPartialName(partialName);
 
             // Assert
             var actualPerson = people.Single();
@@ -133,7 +141,7 @@ namespace PersonSearchServices.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void GetPeopleByPartialName_PartialNameIsNullOrEmpty_ReturnsAllPeople(string partialName)
+        public void GetPeopleIncludeRelatedDataByPartialName_PartialNameIsNullOrEmpty_ReturnsAllPeople(string partialName)
         {
             var expectedFullName1 = $"{_bobLawblaw.FirstName} {_bobLawblaw.LastName}";
             var expectedFullName2 = $"{_steveSchmeve.FirstName} {_steveSchmeve.LastName}";
@@ -142,7 +150,7 @@ namespace PersonSearchServices.Test
             _fileSystemMock.Setup(f => f.File.ReadAllBytes(It.IsAny<string>())).Returns(new byte[] {});
 
             // Act
-            var people = _personSearchService.GetPeopleByPartialName(partialName);
+            var people = _personSearchService.GetPeopleIncludeRelatedDataByPartialName(partialName);
 
             // Assert
             Assert.AreEqual(2, people.Count);

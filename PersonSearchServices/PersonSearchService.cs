@@ -21,9 +21,14 @@ namespace PersonSearchServices
             _imagesDirectory = rootDirectory + "//PersonImages//";
         }
 
-        public IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName)
+        public IReadOnlyCollection<PersonDto> GetPeopleIncludeRelatedDataByPartialName(string partialName)
         {
-            IQueryable<Person> peopleData = _personContext.People;
+            IQueryable<Person> peopleData = _personContext
+                .People
+                .Include("Address")
+                .Include("Address.City")
+                .Include("Address.City.State")
+                .Include("Interests");
 
             if (!string.IsNullOrWhiteSpace(partialName))
             {

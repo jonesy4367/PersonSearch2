@@ -85,7 +85,7 @@ namespace DataAccess
             _lemonjelloPuddin.Interests.Add(_tvAppearences);
 
             _johnSmith.Address = _437Street;
-            //_johnSmith.Interests.Add(_playingDead);
+            _johnSmith.Interests.Add(_playingDead);
 
             // Addresses
             _123Street.City = _saltLakeCity;
@@ -128,7 +128,7 @@ namespace DataAccess
             _tvAppearences.People.Add(_lemonjelloPuddin);
 
             _playingDead.People.Add(_pizzaMcCheeseface);
-            //_playingDead.People.Add(_johnSmith);
+            _playingDead.People.Add(_johnSmith);
         }
 
         private void BuildPeople()

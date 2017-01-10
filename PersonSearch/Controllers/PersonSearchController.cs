@@ -23,7 +23,7 @@ namespace PersonSearch.Controllers
         {
             Thread.Sleep(TimeSpan.FromSeconds(10));
 
-            var people = _personSearchService.GetPeopleByPartialName(partialName);
+            var people = _personSearchService.GetPeopleIncludeRelatedDataByPartialName(partialName);
             return Json(people);
         }
     }

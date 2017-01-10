@@ -6,6 +6,6 @@ namespace PersonSearchServices.Interfaces
 {
     public interface IPersonSearchService
     {
-        IReadOnlyCollection<PersonDto> GetPeopleByPartialName(string partialName);
+        IReadOnlyCollection<PersonDto> GetPeopleIncludeRelatedDataByPartialName(string partialName);
     }
 }

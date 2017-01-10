@@ -50,7 +50,7 @@ namespace PersonSearch.Test.Controllers
 
             // Arrange
             _personSearchServiceMock
-                .Setup(p => p.GetPeopleByPartialName(partialName))
+                .Setup(p => p.GetPeopleIncludeRelatedDataByPartialName(partialName))
                 .Returns(new List<PersonDto>
                 {
                     expectedPersonDto
